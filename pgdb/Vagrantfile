@@ -1,0 +1,16 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  # Host with PostgreSQL
+  config.vm.define "pgdb_ai" do |pgdb_ai|
+    pgdb_ai.vm.box = "ubuntu/focal64"
+    pgdb_ai.vm.network "private_network", ip: "192.168.56.22"
+    pgdb_ai.vm.network "forwarded_port", guest: 7432, host: 5432
+    pgdb_ai.vm.synced_folder ".", "/vagrant", type: "rsync"
+    pgdb_ai.vm.provision "shell", path: "provision_pgdb_ai_ubuntu.sh"
+  end
+  
+end
+
