@@ -39,12 +39,12 @@ AS $$
 import requests, json
 
 prompt = """Be terse. Discuss only Postgres and its commits.
-For commits, mention timestamp and hash. The most important as information use only CONTEXT that I provided to you
-CONTEXT (git commits):
+For commits, mention timestamp and hash.
+Using this data:
 ---
 %s
 ---
-QUESTION: %s
+Respond to this prompt: %s
 """ % (data_to_embed[:2000], question)
 
 response = requests.post(

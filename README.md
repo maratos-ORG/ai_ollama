@@ -5,6 +5,7 @@
 - vagrant up
 - vagrant ssh 
 - Implement command from pgdb/[how_prepare_postgres.md](pgdb/how_prepare_postgres.md)
+- [run olamma](ollama/llama3.md) via docker 
 
 ## Usage
 Result of provisionong will be the fellowing query  
