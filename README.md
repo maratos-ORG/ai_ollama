@@ -27,6 +27,8 @@ Inside the VM:
 - Follow the steps in [pgdb/how_prepare_postgres.md](pgdb/how_prepare_postgres.md)
 - Then run Ollama [via Docker](ollama/llama3.md)
 
+---
+
 ## 🧪 Usage Example
 Once provisioned, you can run SQL queries like:
 ```sql
@@ -34,6 +36,8 @@ select local_chat('Optimise numeric multiplication for short inputs. – when, w
 and olamma will provide the answer  
 ```
 And Ollama will generate an answer using a local model.
+
+---
 
 ## 📂 Structure
 - pgdb/ – Vagrant environment with PostgreSQL setup
