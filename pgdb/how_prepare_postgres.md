@@ -1,4 +1,7 @@
-## Generate embeddings
+# 🛠️ Preparing PostgreSQL for Local AI Integration
+
+## Generate Embeddings
+
 ``` sql
 with scope as (
  select hash
@@ -35,24 +38,30 @@ from upd;
 \watch .1
 ```
 
-
-## CREATE index on the embedding column
+## Create Index on the embedding Column
 ```bash
-sudo -u postgres psql -d testdb -Xc "create index on commit_logs using hnsw (embedding vector_cosine_ops);"
-sudo -u postgres psql -d testdb -Xc "drop index  commit_logs_embedding_idx"
+# Create index
+sudo -u postgres psql -d testdb -Xc \
+  "CREATE INDEX ON commit_logs USING hnsw (embedding vector_cosine_ops);"
+
+# Drop index if needed
+sudo -u postgres psql -d testdb -Xc \
+  "DROP INDEX commit_logs_embedding_idx;"
 ```
 
 ----
 
-### Final working query 
+## Final Working Query
 ```sql
-select local_chat('Optimise numeric multiplication for short inputs. – when, who, etc.');
+SELECT local_chat('Optimise numeric multiplication for short inputs. – when, who, etc.');
 ```
 
-## aditional query for test
+## Additional Test Queries
 ```sql
+-- Preview some stored embeddings:
 select id, embedding from  commit_logs limit 5;
 
+-- Similarity search using generated embedding vector:
 WITH generated_vector AS (
     SELECT local_get_embedding(content := 'commit with checksum that was create only 2024') AS q_vector
 )
@@ -69,7 +78,7 @@ FROM commit_logs, generated_vector
 ORDER BY embedding <-> generated_vector.q_vector
 LIMIT 5;
 
-
+-- Run a local AI model on a custom input:
 SELECT ai_local_call(
     'Show me what i send to you',
     'Commit 1: checksum verification...',

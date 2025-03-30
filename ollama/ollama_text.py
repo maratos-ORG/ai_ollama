@@ -1,11 +1,10 @@
 from ollama import Client
 
-# Подключаемся к серверу
 #run in host's cli 
 #OLLAMA_HOST=0.0.0.0:11436 ollama serve
 client = Client(host='http://192.168.0.16:11434')
 
-# Отправляем запрос к модели
+# Send request to the model
 response = client.chat(model='llama3', messages=[
   {
     'role': 'user',
@@ -13,10 +12,10 @@ response = client.chat(model='llama3', messages=[
   },
 ])
 
-# Выводим полный ответ для проверки структуры
+# Print the full response to check its structure
 print("Full response:", response)
 
-# Предполагаем, что ответ имеет структуру с ключами 'message' и 'content'
+# Assume the response has a structure with 'message' and 'content' keys
 if 'message' in response and 'content' in response['message']:
     print("Content:", response['message']['content'])
 else:
